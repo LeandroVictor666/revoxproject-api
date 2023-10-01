@@ -7,7 +7,8 @@ Na maioria se não todos os projetos que estão no meu repositorio representa um
 Nesse projeto estou seguindo a arquitetura TDD e aplicando conceitos de Clean-Code.
 
 **Você pode obter o projeto front-end no seguinte link**
-###https://github.com/LeandroVictor666/revoxproject-app
+
+### https://github.com/LeandroVictor666/revoxproject-app
 
 ---
 
@@ -41,16 +42,18 @@ Nesse projeto estou seguindo a arquitetura TDD e aplicando conceitos de Clean-Co
 ### ***https://www.docker.com***
 
 ---
-***!Importante, antes de executas os passos abaixos, crie uma pasta chamada "db" na pasta "app", o container do postgresql busca por essa pasta (e eu não tenho certeza se o docker cria esta pasta automaticamente)***
+
+**_!Importante, antes de executas os passos abaixos, crie uma pasta chamada "db" na pasta "app", o container do postgresql busca por essa pasta (e eu não tenho certeza se o docker cria esta pasta automaticamente)_**
 
 - 1. Primeiro faça o git clone ou apenas faça o download do projeto
 - 2. Abra seu terminal ou cmd e acesse a pasta base do projeto
-- 3. Rode o comando ```docker-compose up```
+- 3. Rode o comando `docker-compose up`
 - 4. O docker irá baixar todas as images necessarias para o projeto, então é necessario aguardar um pouco
-- 5. Agora, abra outro terminal (ou em vez de utilizar o comando ```docker-compose up -d``` para rodar os containers em modo detached, agora você pode utilizar o mesmo terminal)
-- 6. Utilize o comando ```docker inspect revox-api``` esse comando irá apresentar diversas informações sobre o container, mas oque realmente interessa é o ""IPAddress": "xxx.xxx.xx.x"", pois é nesse ip que vai ficar rodando a nossa api, as requests precisam ir para esse ip.
+- 5. Agora, abra outro terminal (ou em vez de utilizar o comando `docker-compose up -d` para rodar os containers em modo detached, agora você pode utilizar o mesmo terminal)
+- 6. Utilize o comando `docker inspect revox-api` esse comando irá apresentar diversas informações sobre o container, mas oque realmente interessa é o ""IPAddress": "xxx.xxx.xx.x"", pois é nesse ip que vai ficar rodando a nossa api, as requests precisam ir para esse ip.
 - 7. Agora abra seu navegador, e acesse a seguinte url: `http://IpDoConteinerAqui:3000` (troque o IpDoConteinerAqui pelo IP que você obteve ao executar o docker inspect)
 - 8. Se você receber a seguinte mensagem: "Hello World!" significa que tudo ocorreu perfeitamente!
+
 ---
 
 **É recomendavel que tenha um pouco de experiencia com o docker, e principalmente com comandos bash, para poder navegar ou inspecionar dentro do container, em breve farei o passo a passo de como verificar se esta tudo ok com o container do postgresql, também irei trazer algumas alterações que irão facilitar o processo de build do projeto com o docker**
