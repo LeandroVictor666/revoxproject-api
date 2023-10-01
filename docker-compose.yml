@@ -10,7 +10,7 @@ services:
     network_mode: host
     ports:
       - "3000:3000"
-    command: ["sh", "-c", "npm install && npm start"]
+    command: ["sh", "-c", "npm install && npm run start:dev"]
 
   db-server:
     image: postgres:16.0
