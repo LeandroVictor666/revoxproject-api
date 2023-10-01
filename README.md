@@ -49,9 +49,7 @@ Nesse projeto estou seguindo a arquitetura TDD e aplicando conceitos de Clean-Co
 - 2. Abra seu terminal ou cmd e acesse a pasta base do projeto
 - 3. Rode o comando `docker-compose up`
 - 4. O docker irá baixar todas as images necessarias para o projeto, então é necessario aguardar um pouco
-- 5. Agora, abra outro terminal (ou em vez de utilizar o comando `docker-compose up -d` para rodar os containers em modo detached, agora você pode utilizar o mesmo terminal)
-- 6. Utilize o comando `docker inspect revox-api` esse comando irá apresentar diversas informações sobre o container, mas oque realmente interessa é o ""IPAddress": "xxx.xxx.xx.x"", pois é nesse ip que vai ficar rodando a nossa api, as requests precisam ir para esse ip.
-- 7. Agora abra seu navegador, e acesse a seguinte url: `http://IpDoConteinerAqui:3000` (troque o IpDoConteinerAqui pelo IP que você obteve ao executar o docker inspect)
+- 5. Agora abra seu navegador, e acesse a seguinte url: `http://localhost:3000`
 - 8. Se você receber a seguinte mensagem: "Hello World!" significa que tudo ocorreu perfeitamente!
 
 ---
