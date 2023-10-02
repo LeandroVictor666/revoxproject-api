@@ -24,9 +24,17 @@ export class Publications {
   @Column({ type: 'int4', default: 0 })
   sharesCounter: number;
 
+  @ManyToOne(() => Account, (author) => author.username)
+  @JoinColumn({
+    name: 'authorUsername',
+    foreignKeyConstraintName: 'authorUsername',
+    referencedColumnName: 'username',
+  })
+  authorUsername: string;
+
   @ManyToOne(() => Account, (author) => author.id)
-  @JoinColumn({ name: 'authorId' })
-  author: Account;
+  @JoinColumn({ name: 'authorId', foreignKeyConstraintName: 'authorId' })
+  authorId: Account;
 
   @Column({
     type: 'timestamp without time zone',
