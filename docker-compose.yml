@@ -2,7 +2,7 @@ version: "3"
 
 services:
   api-server:
-    image: node:current-alpine3.18
+    image: node:20.6.1
     container_name: revox-api
     working_dir: /app/api
     volumes:
