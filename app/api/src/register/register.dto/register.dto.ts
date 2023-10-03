@@ -1,4 +1,10 @@
-import { IsEmail, IsString, IsStrongPassword, Length } from 'class-validator';
+import {
+  IsEmail,
+  IsString,
+  IsStrongPassword,
+  Length,
+  IsDateString,
+} from 'class-validator';
 
 export class RegisterDto {
   @IsString()
@@ -16,6 +22,6 @@ export class RegisterDto {
     minUppercase: 1,
   })
   readonly password: string;
-  //   @IsDate()
-  //   readonly birthday: Date;
+  @IsDateString()
+  readonly birthday: Date;
 }
