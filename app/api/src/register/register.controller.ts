@@ -14,11 +14,7 @@ export class RegisterController {
     return this.registerService.exampleFunction();
   }
   @Post('register')
-  async registerUser(
-    @Body() registerDto: RegisterDto,
-    @Res({ passthrough: true })
-    res: Response,
-  ) {
+  async registerUser(@Body() registerDto: RegisterDto, @Res() res: Response) {
     try {
       const response: ServerResponseDto =
         await this.registerService.registerUser(registerDto);
