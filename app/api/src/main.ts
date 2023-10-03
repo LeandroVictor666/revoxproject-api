@@ -7,10 +7,8 @@ async function bootstrap() {
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
-      forbidNonWhitelisted: true,
       transform: true,
       forbidUnknownValues: true,
-      enableDebugMessages: true,
     }),
   );
   app.enableCors();
