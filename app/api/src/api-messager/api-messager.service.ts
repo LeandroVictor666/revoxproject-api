@@ -16,6 +16,16 @@ export class ApiMessagerService {
     };
   }
 
+  dispatchInternalServerError(): ServerResponseDto {
+    return {
+      isError: true,
+      response:
+        'Internal Server Error, if this problem continues, contact a admin',
+      responseFrom: 'server',
+      responseStatus: ResponseStatus.InternalServerError,
+    };
+  }
+
   createSuccessResponse(
     message: string,
     status: ResponseStatus,
