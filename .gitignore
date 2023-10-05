@@ -1,4 +1,5 @@
 /app/db
 /node_modules
 /package-lock.json
+/redis-db/
 package.json
