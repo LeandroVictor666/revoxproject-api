@@ -7,16 +7,22 @@ import { Account } from 'src/database/entity/account.entity';
 import { jwtConstants } from './auth-constants';
 import { AuthenticationController } from './authentication.controller';
 import { ApiMessagerService } from 'src/api-messager/api-messager.service';
+import { RedismanagerService } from 'src/redismanager/redismanager.service';
 @Module({
   imports: [
     TypeOrmModule.forFeature([Account]),
     JwtModule.register({
       global: true,
       secret: jwtConstants.secret,
-      signOptions: { expiresIn: '25 days' },
+      signOptions: { expiresIn: '6 days' },
     }),
   ],
-  providers: [AuthenticationService, AccountService, ApiMessagerService],
+  providers: [
+    AuthenticationService,
+    AccountService,
+    ApiMessagerService,
+    RedismanagerService,
+  ],
   controllers: [AuthenticationController],
 })
 export class AuthenticationModule {}
