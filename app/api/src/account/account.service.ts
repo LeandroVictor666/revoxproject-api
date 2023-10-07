@@ -26,7 +26,7 @@ export class AccountService {
     username: string,
   ): Promise<Account | false> {
     const result = await this.accountRepository.findOne({
-      select: ['id', 'nickname', 'email', 'birthday'],
+      select: ['id', 'nickname', 'email', 'isPfpSet', 'birthday'],
       where: {
         username: username,
       },
