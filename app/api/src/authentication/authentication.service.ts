@@ -57,6 +57,7 @@ export class AuthenticationService {
       accountData.username = loginObject.username;
       accountData.nickname = accountDataQuery.nickname;
       accountData.email = accountDataQuery.email;
+      accountData.isPfpSet = accountDataQuery.isPfpSet;
       accountData.birthday = accountDataQuery.birthday;
       const payload = {
         accountData,
