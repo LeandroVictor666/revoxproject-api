@@ -1,4 +1,4 @@
-import { IsDateString, IsEmail, IsString } from 'class-validator';
+import { IsBoolean, IsDateString, IsEmail, IsString } from 'class-validator';
 
 export class AccountDto {
   @IsString()
@@ -7,6 +7,8 @@ export class AccountDto {
   nickname: string;
   @IsEmail()
   email: string;
+  @IsBoolean()
+  isPfpSet: boolean;
   @IsDateString()
   birthday: Date;
 }
