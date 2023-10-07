@@ -14,6 +14,9 @@ export class Account {
   @Column({ type: `varchar`, length: 255, nullable: false, unique: true })
   email: string;
 
+  @Column({ type: 'boolean', default: false })
+  isPfpSet: boolean;
+
   @Column({ type: 'varchar', length: 500, nullable: false })
   password: string;
 
