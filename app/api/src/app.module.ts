@@ -5,6 +5,7 @@ import { DataSource } from 'typeorm';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { RedisModule } from '@songkeys/nestjs-redis';
 import { exec } from 'child_process';
+import { PublicationModule } from './publication/publication.module';
 const redisCommand = 'redis-server';
 exec(redisCommand);
 @Module({
@@ -15,6 +16,7 @@ exec(redisCommand);
     RedisModule.forRoot({
       config: { host: 'localhost', port: 6379 },
     }),
+    PublicationModule,
   ],
 })
 export class AppModule {
