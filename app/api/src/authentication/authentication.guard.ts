@@ -1,9 +1,9 @@
 import {
-  BadRequestException,
   CanActivate,
   ExecutionContext,
   Injectable,
   UnauthorizedException,
+  BadRequestException,
 } from '@nestjs/common';
 import { Request } from 'express';
 import { JwtService } from '@nestjs/jwt';
@@ -19,32 +19,35 @@ export class AuthenticationGuard implements CanActivate {
     const request = context.switchToHttp().getRequest() as Request;
     const token = this.extractTokenFromHeader(request);
     if (!token) {
-      throw new UnauthorizedException({
-        response: 'Unauthorized, please, login.',
-      });
+      this.throwUnauthorizedError();
     }
     try {
       const payload = this.jwtService.verify(token, {
         secret: jwtConstants.secret,
       });
       if (!payload) {
-        throw new BadRequestException({
-          response: 'Invalid authentication token, please, login.',
-        });
+        this.throwAuthenticationError();
       }
       const keyToken = await this.redisManagerService.getKey(token);
-      console.log(`keyTOKEN: ${keyToken}`);
       if (!keyToken) {
-        throw new BadRequestException({
-          response: 'Invalid authentication token, please, login.',
-        });
+        this.throwAuthenticationError();
       }
     } catch (error) {
-      throw new BadRequestException({
-        response: 'Invalid authentication token, please, login.',
-      });
+      this.throwAuthenticationError();
     }
     return true;
+  }
+
+  private throwUnauthorizedError() {
+    throw new BadRequestException({
+      response: 'Unauthorized, please, login.',
+    });
+  }
+
+  private throwAuthenticationError() {
+    throw new UnauthorizedException({
+      response: 'Unauthorized, please, login.',
+    });
   }
 
   private extractTokenFromHeader(request: Request): string | undefined {
