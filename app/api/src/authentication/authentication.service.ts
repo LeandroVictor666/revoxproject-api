@@ -54,6 +54,7 @@ export class AuthenticationService {
         return Promise.reject(this.dispatchInvalidCredentialsMessage());
       }
       const accountData: AccountDto = new AccountDto();
+      accountData.id = accountDataQuery.id;
       accountData.username = loginObject.username;
       accountData.nickname = accountDataQuery.nickname;
       accountData.email = accountDataQuery.email;
