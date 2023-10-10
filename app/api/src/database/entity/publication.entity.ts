@@ -32,9 +32,13 @@ export class Publications {
   })
   authorUsername: string;
 
-  @ManyToOne(() => Account, (author) => author.id)
-  @JoinColumn({ name: 'authorId', foreignKeyConstraintName: 'authorId' })
-  authorId: Account;
+  @ManyToOne(() => Account, (author) => author.id, { nullable: false })
+  @JoinColumn({
+    name: 'authorId',
+    foreignKeyConstraintName: 'authorId',
+    referencedColumnName: 'id',
+  })
+  authorId: number;
 
   @Column({
     type: 'timestamp without time zone',
