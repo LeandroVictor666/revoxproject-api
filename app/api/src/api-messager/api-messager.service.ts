@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ServerResponseDto } from 'src/dto/server-response.dto';
+import PostgreSqlErrorsEnum from 'src/enum/postgre-sql-errors.enum';
 import { ResponseStatus } from 'src/enum/response-status.enum';
 
 @Injectable()
@@ -14,6 +15,26 @@ export class ApiMessagerService {
       responseFrom: `server`,
       responseStatus: status,
     };
+  }
+
+  dispatchPostreSQLError(
+    errorCode: PostgreSqlErrorsEnum | number,
+    customMessage?: string,
+  ): ServerResponseDto {
+    switch (errorCode) {
+      case PostgreSqlErrorsEnum.CANNOTBENULL: {
+        if (customMessage === undefined) {
+          customMessage = 'Please fill in all fields correctly.';
+        }
+        return this.createErrorResponse(
+          customMessage,
+          ResponseStatus.ClientInputError,
+        );
+      }
+      default: {
+        return this.dispatchInternalServerError();
+      }
+    }
   }
 
   dispatchInternalServerError(): ServerResponseDto {
