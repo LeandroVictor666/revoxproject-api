@@ -3,14 +3,17 @@ import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Request } from 'express';
 import { Publications } from 'src/database/entity/publication.entity';
-import { AccountDto } from 'src/dto/account-dto';
 import NewPublicationDto from 'src/dto/new-publication-dto';
 import { ServerResponseDto } from 'src/dto/server-response.dto';
 import { ResponseStatus } from 'src/enum/response-status.enum';
 import { ApiMessagerService } from 'src/api-messager/api-messager.service';
-import { Repository } from 'typeorm';
+import { MoreThan, Repository } from 'typeorm';
+import PublicationsDto from 'src/dto/publications-dto';
+import PublicationsRequestDto from 'src/dto/publications-request-dto';
+import AccountJwtDto from 'src/dto/account-jwt-dto';
 @Injectable()
 export class PublicationService {
+  private MAX_SELECT_PUBLICATION_QUERY = 25;
   constructor(
     @InjectRepository(Publications)
     private readonly publicationsRepository: Repository<Publications>,
@@ -21,13 +24,13 @@ export class PublicationService {
     newPublicationDto: NewPublicationDto,
     Request: Request,
   ): Promise<ServerResponseDto> {
-    const payload = this.getTokenPayload<AccountDto>(Request);
+    const payload = this.getTokenPayload<AccountJwtDto>(Request).accountData;
     if (payload == null) {
       return this.callToDispatchAuthError();
     }
     try {
       await this.createNewPublication(
-        payload.id,
+        Number(payload.id),
         payload.username,
         newPublicationDto.content,
       );
@@ -59,6 +62,27 @@ export class PublicationService {
       content: publicationContent,
     });
   }
+
+  private async getPublicationsQuery(lastPublicationId: number) {
+    return await this.publicationsRepository.find({
+      where: { id: MoreThan(lastPublicationId) },
+      order: { id: 'ASC' },
+      take: this.MAX_SELECT_PUBLICATION_QUERY,
+    });
+  }
+
+  async getPublications(
+    publicationRequest: PublicationsRequestDto,
+  ): Promise<PublicationsDto> {
+    const publications = await this.getPublicationsQuery(
+      publicationRequest.lastPublicationId,
+    );
+    return {
+      publications: publications,
+      count: publications.length,
+    };
+  }
+
   private callToDispatchAuthError() {
     return this.apiMessagerService.createErrorResponse(
       'Invalid authentication, please authenticate',
