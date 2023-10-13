@@ -98,7 +98,7 @@ export class PublicationService {
     const result = await this.publicationsRepository
       .createQueryBuilder('publications')
       .where('publications.id > :lastPublicationId', { lastPublicationId })
-      .orderBy('publications.id', 'ASC')
+      .orderBy('publications.id', 'DESC')
       .take(this.MAX_SELECT_PUBLICATION_QUERY)
       .leftJoin('publications.authorUsername', 'author')
       .leftJoin('publications.authorId', 'authorId')
